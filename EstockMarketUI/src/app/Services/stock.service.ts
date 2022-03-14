@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { StockPrice } from '../Models/stock';
-const stockUrl = 'http://localhost:53747/api/v1.0/market/Stock'
+const stockUrl = 'https://ocelotapigateway20220314203141.azurewebsites.net/api/v1.0/market/Stock'
 @Injectable({
   providedIn: 'root'
 })

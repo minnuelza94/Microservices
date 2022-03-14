@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CompanyMicroservice.Migrations
 {
     [DbContext(typeof(StockMarketContext))]
-    [Migration("20220223155229_init")]
+    [Migration("20220309105152_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

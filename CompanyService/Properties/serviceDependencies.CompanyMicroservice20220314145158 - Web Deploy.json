@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/estockserver/databases/EStockMarket_DB",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:StockMarketContext",
+      "secretStore": "AzureAppSettings"
+    }
+  }
+}

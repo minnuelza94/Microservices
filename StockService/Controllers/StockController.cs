@@ -79,7 +79,7 @@ namespace StockMicroservice.Controllers
         }
 
         [HttpGet]
-        [Route("get/{comapanyCode}")]
+        [Route("getStockPrice/{comapanyCode}")]
         public IActionResult GetStocksPrice(string comapanyCode)
         {
             try

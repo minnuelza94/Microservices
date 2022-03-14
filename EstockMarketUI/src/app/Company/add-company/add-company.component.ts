@@ -38,7 +38,7 @@ export class AddCompanyComponent implements OnInit {
       companyName: ['', Validators.required],
       companyCeo: ['', Validators.required],
       website: ['', Validators.required],
-      turnover: ['', Validators.required],
+      turnover: ['', [Validators.required, Validators.min(100000000)]],
       stockExchange: ['', Validators.required],
       latestStockPrice: [],
       stockPrice: ['']

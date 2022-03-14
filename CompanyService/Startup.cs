@@ -51,7 +51,7 @@ namespace CompanyMicroservice
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-            if (env.IsDevelopment())
+            if (env.IsDevelopment() || env.IsProduction())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();

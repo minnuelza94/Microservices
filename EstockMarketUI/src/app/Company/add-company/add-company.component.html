@@ -49,6 +49,7 @@
                 [ngClass]="{ 'is-invalid': submitted && f.turnover.errors }" />
             <div *ngIf="submitted && f.turnover.errors" class="invalid-feedback">
                 <div *ngIf="f.turnover.errors.required">TurnOver is required</div>
+                <div *ngIf="f.turnover.errors.min">TurnOver must be greater than 10Cr.</div>
             </div>
         </div>
         <div *ngIf="!isAddMode" class="form-group col-4">

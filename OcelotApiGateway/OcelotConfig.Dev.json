@@ -5,7 +5,7 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "companymicroservice.azurewebsites.net",
+          "Host": "companymicroservice20220314145158.azurewebsites.net",
           "Port": 443
         }
       ],
@@ -17,43 +17,16 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "stockmicroservice.azurewebsites.net",
+          "Host": "stockmicroservice20220314201755.azurewebsites.net",
           "Port": 443
         }
       ],
       "UpstreamPathTemplate": "/api/v1.0/market/Stock/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/v1.0/market/Report/GetStocks",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "stockreportmicroservice.azurewebsites.net",
-          "Port": 443
-        }
-      ],
-      "UpstreamPathTemplate": "/api/v1.0/market/Report/GetStocks",
-      "UpstreamHttpMethod": [ "GET"]
     }
-    //,{
-    //  "DownstreamPathTemplate": "/api/{version}/{everything}",
-    //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "basket-api",
-    //      "Port": 80
-    //    }
-    //  ],
-    //  "UpstreamPathTemplate": "/api/{version}/b/{everything}",
-    //  "UpstreamHttpMethod": [ "POST", "PUT", "GET" ],
-    //  "AuthenticationOptions": {
-    //    "AuthenticationProviderKey": "IdentityApiKey",
-    //    "AllowedScopes": []
-    //  }
-    //}
   ],
   "GlobalConfiguration": {
+   // "BaseUrl": "https://ocelotapi.azurewebsites.net/",
     "BaseUrl": "https://ocelotapi.azurewebsites.net/"
   }
 }
