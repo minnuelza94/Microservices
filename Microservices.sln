@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyMicroservice", "Comp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcelotApiGateway", "OcelotApiGateway\OcelotApiGateway.csproj", "{057E517D-DE49-45D6-816A-3CAE0F0E8588}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockReport", "Stock Report\StockReport.csproj", "{A2CE8EE2-5009-4FD0-B6BF-D801DCBBDE20}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{057E517D-DE49-45D6-816A-3CAE0F0E8588}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{057E517D-DE49-45D6-816A-3CAE0F0E8588}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{057E517D-DE49-45D6-816A-3CAE0F0E8588}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2CE8EE2-5009-4FD0-B6BF-D801DCBBDE20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2CE8EE2-5009-4FD0-B6BF-D801DCBBDE20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2CE8EE2-5009-4FD0-B6BF-D801DCBBDE20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2CE8EE2-5009-4FD0-B6BF-D801DCBBDE20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -36,6 +42,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{7B7FB965-2496-4E52-8230-8E270B1FDB70} = {2074C1C8-00B7-48BA-9051-5514382BA3F2}
 		{F2F84A9E-280E-44EB-9D69-151FEC97CD9C} = {2074C1C8-00B7-48BA-9051-5514382BA3F2}
+		{A2CE8EE2-5009-4FD0-B6BF-D801DCBBDE20} = {2074C1C8-00B7-48BA-9051-5514382BA3F2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9FC1E25E-BBD6-4633-AB0D-83DE025BB471}
