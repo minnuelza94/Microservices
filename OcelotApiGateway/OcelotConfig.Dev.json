@@ -5,7 +5,7 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "companymicroservice20220314145158.azurewebsites.net",
+          "Host": "company-microservice.azurewebsites.net",
           "Port": 443
         }
       ],
@@ -17,7 +17,7 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "stockmicroservice20220314201755.azurewebsites.net",
+          "Host": "stock-microservice.azurewebsites.net",
           "Port": 443
         }
       ],
@@ -26,7 +26,6 @@
     }
   ],
   "GlobalConfiguration": {
-   // "BaseUrl": "https://ocelotapi.azurewebsites.net/",
     "BaseUrl": "https://ocelotapi.azurewebsites.net/"
   }
 }

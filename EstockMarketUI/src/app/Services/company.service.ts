@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { company } from '../Models/company';
 import { StockExchange } from '../Models/stock';
 
-const baseUrl = 'https://ocelotapigateway20220314203141.azurewebsites.net/api/v1.0/market/Company'
+const baseUrl = 'https://ocelot-apigateway.azurewebsites.net/api/v1.0/market/Company'
 
 @Injectable({
   providedIn: 'root'
