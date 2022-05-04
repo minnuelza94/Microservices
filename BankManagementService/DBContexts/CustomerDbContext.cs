@@ -18,8 +18,9 @@ namespace BankManagementMicroservice.DBContexts
         {
         }
 
-        public virtual DbSet<CompanyDetail> CompanyDetails { get; set; }
-        public virtual DbSet<LoanDetail> StockExchanges { get; set; }
+        public virtual DbSet<CustomerDetail> CustomerDetail { get; set; }
+        public virtual DbSet<LoanDetail> LoanDetail { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -30,61 +31,61 @@ namespace BankManagementMicroservice.DBContexts
             }
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
-            modelBuilder.Entity<CompanyDetail>(entity =>
-            {
-                entity.HasKey(e => new { e.CompanyId, e.CompanyCode })
-                    .HasName("PK_CompanyId");
+        //    modelBuilder.Entity<CompanyDetail>(entity =>
+        //    {
+        //        entity.HasKey(e => new { e.CompanyId, e.CompanyCode })
+        //            .HasName("PK_CompanyId");
 
-                entity.Property(e => e.CompanyCode)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+        //        entity.Property(e => e.CompanyCode)
+        //            .HasMaxLength(50)
+        //            .IsUnicode(false);
 
-                entity.Property(e => e.CompanyCeo)
-                    .IsRequired()
-                    .HasMaxLength(25)
-                    .IsUnicode(false)
-                    .HasColumnName("CompanyCEO");
+        //        entity.Property(e => e.CompanyCeo)
+        //            .IsRequired()
+        //            .HasMaxLength(25)
+        //            .IsUnicode(false)
+        //            .HasColumnName("CompanyCEO");
 
-                entity.Property(e => e.CompanyName)
-                    .IsRequired()
-                    .HasMaxLength(50);
+        //        entity.Property(e => e.CompanyName)
+        //            .IsRequired()
+        //            .HasMaxLength(50);
 
-                entity.Property(e => e.Turnover).HasColumnType("decimal(19, 2)");
+        //        entity.Property(e => e.Turnover).HasColumnType("decimal(19, 2)");
 
-                entity.Property(e => e.Website)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+        //        entity.Property(e => e.Website)
+        //            .IsRequired()
+        //            .HasMaxLength(100)
+        //            .IsUnicode(false);
 
-                entity.HasOne(d => d.StockExchangeNavigation)
-                    .WithMany(p => p.CompanyDetails)
-                    .HasForeignKey(d => d.StockExchange)
-                    .HasConstraintName("Fk_StockExchange_ExchangeID");
-            });
+        //        entity.HasOne(d => d.StockExchangeNavigation)
+        //            .WithMany(p => p.CompanyDetails)
+        //            .HasForeignKey(d => d.StockExchange)
+        //            .HasConstraintName("Fk_StockExchange_ExchangeID");
+        //    });
 
-            modelBuilder.Entity<LoanDetail>(entity =>
-            {
-                entity.HasKey(e => e.ExchangeId)
-                    .HasName("PK_ExchangeId");
+        //    modelBuilder.Entity<LoanDetail>(entity =>
+        //    {
+        //        entity.HasKey(e => e.ExchangeId)
+        //            .HasName("PK_ExchangeId");
 
-                entity.ToTable("StockExchange");
+        //        entity.ToTable("StockExchange");
 
-                entity.Property(e => e.ExchangeId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ExchangeID");
+        //        entity.Property(e => e.ExchangeId)
+        //            .ValueGeneratedNever()
+        //            .HasColumnName("ExchangeID");
 
-                entity.Property(e => e.ExchangeName)
-                    .IsRequired()
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
-            });
+        //        entity.Property(e => e.ExchangeName)
+        //            .IsRequired()
+        //            .HasMaxLength(10)
+        //            .IsUnicode(false);
+        //    });
 
-            OnModelCreatingPartial(modelBuilder);
-        }
+        //    OnModelCreatingPartial(modelBuilder);
+        //}
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

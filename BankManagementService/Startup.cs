@@ -1,5 +1,7 @@
 using BankManagementMicroservice.DBContexts;
 using BankManagementMicroservice.Repository;
+using BankManagementMicroservice.Repository.JWTWebAuthentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,10 +11,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace BankManagementMicroservice
@@ -39,6 +43,27 @@ namespace BankManagementMicroservice
 
             services.AddEntityFrameworkSqlServer().AddDbContext<CustomerDbContext>(dbContext => dbContext.UseSqlServer(Configuration.GetConnectionString("StockMarketContext")));
             services.AddScoped<ICompanyRepositories, CompanyRepostories>();
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(o =>
+            {
+                var Key = Encoding.UTF8.GetBytes(Configuration["JWT:Key"]);
+                o.SaveToken = true;
+                o.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["JWT:Issuer"],
+                    ValidAudience = Configuration["JWT:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Key)
+                };
+            });
+
+            services.AddSingleton<IJWTManagerRepository, JWTManagerRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -61,6 +86,7 @@ namespace BankManagementMicroservice
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseAuthentication(); // This need to be added	
 
             app.UseAuthorization();
 

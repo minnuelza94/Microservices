@@ -1,5 +1,7 @@
 ﻿using BankManagementMicroservice.DTOs;
 using BankManagementMicroservice.Repository;
+using BankManagementMicroservice.Repository.JWTWebAuthentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,13 +12,15 @@ using System.Threading.Tasks;
 
 namespace BankManagementMicroservice.Controllers
 {
+    [Authorize]
     [Route("api/v1.0/market/[controller]")]
     [ApiController]
     public class CustomerController : ControllerBase
     {
         private ICompanyRepositories companyRepositories;
+        private readonly IJWTManagerRepository _jWTManager;
 
-        public CustomerController(ICompanyRepositories _companyRepositories)
+        public CustomerController(ICompanyRepositories _companyRepositories, IJWTManagerRepository jWTManager)
         {
             if (_companyRepositories == null)
             {
@@ -24,8 +28,36 @@ namespace BankManagementMicroservice.Controllers
             }
 
             this.companyRepositories = _companyRepositories;
+            this._jWTManager = jWTManager;
         }
 
+        [HttpGet]
+        public List<string> Get()
+        {
+            var users = new List<string>
+        {
+            "Satinder Singh",
+            "Amit Sarna",
+            "Davin Jon"
+        };
+
+            return users;
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("authenticate")]
+        public IActionResult Authenticate(CustomerDto usersdata)
+        {
+            var token = _jWTManager.Authenticate(usersdata);
+
+            if (token == null)
+            {
+                return Unauthorized();
+            }
+
+            return Ok(token);
+        }
         [HttpGet]
         [Route("getall")]
         public IActionResult GetAll()

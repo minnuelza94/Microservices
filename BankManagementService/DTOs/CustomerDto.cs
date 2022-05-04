@@ -7,12 +7,17 @@ namespace BankManagementMicroservice.DTOs
 {
     public class CustomerDto
     {
-        public string CompanyCode { get; set; }
-        public string CompanyName { get; set; }
-        public string CompanyCeo { get; set; }
-        public decimal Turnover { get; set; }
-        public string Website { get; set; }
-        public string StockExchange { get; set; }
-        public int StockExchangeID { get; set; }
+        public int CustomerId { get; set; }
+        public string Name { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string Address { get; set; }
+        public string State { get; set; }
+        public string Country { get; set; }
+        public string EmailAddress { get; set; }
+        public string PAN { get; set; }
+        public string DOB { get; set; }
+        public long ContactNo { get; set; }
+        public string AccountType { get; set; }
     }
 }
