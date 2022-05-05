@@ -1,4 +1,5 @@
 ﻿using BankManagementMicroservice.DTOs;
+using BankMangementMicroservice.Helpers.JWTWebAuthentication;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -7,11 +8,10 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace BankManagementMicroservice.Repository.JWTWebAuthentication
+namespace ankMangementMicroservice.Helpers.JWTWebAuthentication
 {
-	public class JWTManagerRepository : IJWTManagerRepository
+    public class JWTManager : IJWTManager
 	{
 		Dictionary<string, string> UsersRecords = new Dictionary<string, string>
 	{
@@ -21,7 +21,7 @@ namespace BankManagementMicroservice.Repository.JWTWebAuthentication
 	};
 
 		private readonly IConfiguration iconfiguration;
-		public JWTManagerRepository(IConfiguration iconfiguration)
+		public JWTManager(IConfiguration iconfiguration)
 		{
 			this.iconfiguration = iconfiguration;
 		}

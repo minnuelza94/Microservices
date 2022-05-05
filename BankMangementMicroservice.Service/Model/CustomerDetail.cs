@@ -1,4 +1,4 @@
-﻿namespace BankManagementMicroservice.Model
+﻿namespace BankManagementMicroservice.Service.Model
 {
     public partial class CustomerDetail
     {

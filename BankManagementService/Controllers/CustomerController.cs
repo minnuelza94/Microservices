@@ -1,33 +1,32 @@
 ﻿using BankManagementMicroservice.DTOs;
-using BankManagementMicroservice.Repository;
-using BankManagementMicroservice.Repository.JWTWebAuthentication;
+using BankMangementMicroservice.Helpers.JWTWebAuthentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace BankManagementMicroservice.Controllers
 {
     [Authorize]
-    [Route("api/v1.0/market/[controller]")]
+    [Route("api/v1.0/customer/[controller]")]
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private ICompanyRepositories companyRepositories;
-        private readonly IJWTManagerRepository _jWTManager;
+       // private ICompanyRepositories companyRepositories;
+        private readonly IJWTManager _jWTManager;
 
-        public CustomerController(ICompanyRepositories _companyRepositories, IJWTManagerRepository jWTManager)
+        public CustomerController(
+            //ICompanyRepositories _companyRepositories,
+                                  IJWTManager jWTManager)
         {
-            if (_companyRepositories == null)
-            {
-                throw new NullReferenceException();
-            }
+            //if (_companyRepositories == null)
+            //{
+            //    throw new NullReferenceException();
+            //}
 
-            this.companyRepositories = _companyRepositories;
+          //  this.companyRepositories = _companyRepositories;
             this._jWTManager = jWTManager;
         }
 
@@ -58,125 +57,126 @@ namespace BankManagementMicroservice.Controllers
 
             return Ok(token);
         }
-        [HttpGet]
-        [Route("getall")]
-        public IActionResult GetAll()
-        {
-            try
-            {
-                var company = companyRepositories.GetAll();
-                if (company == null)
-                {
-                    return NotFound();
-                }
 
-                return Ok(company);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message.ToString());
-            }
-        }
+        //[HttpGet]
+        //[Route("getall")]
+        //public IActionResult GetAll()
+        //{
+        //    try
+        //    {
+        //        var company = companyRepositories.GetAll();
+        //        if (company == null)
+        //        {
+        //            return NotFound();
+        //        }
 
-        [HttpGet]
-        [Route("getallStock")]
-        public IActionResult GetAllStock()
-        {
-            try
-            {
-                var stock = companyRepositories.GetAllStock();
-                if (stock == null)
-                {
-                    return NotFound();
-                }
+        //        return Ok(company);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message.ToString());
+        //    }
+        //}
 
-                return Ok(stock);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message.ToString());
-            }
-        }
+        //[HttpGet]
+        //[Route("getallStock")]
+        //public IActionResult GetAllStock()
+        //{
+        //    try
+        //    {
+        //        var stock = companyRepositories.GetAllStock();
+        //        if (stock == null)
+        //        {
+        //            return NotFound();
+        //        }
 
-        [Route("info/{code}")]
-        [HttpGet]
-        public IActionResult GetCompanyById(string code)
-        {
-            try
-            {
-                var company = companyRepositories.GetCompanyDetailsByCode(code);
-                if (company == null)
-                {
-                    return NotFound();
-                }
+        //        return Ok(stock);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message.ToString());
+        //    }
+        //}
 
-                return Ok(company);
-            }
-            catch (Exception)
-            {
-                return BadRequest();
-            }
-        }
+        //[Route("info/{code}")]
+        //[HttpGet]
+        //public IActionResult GetCompanyById(string code)
+        //{
+        //    try
+        //    {
+        //        var company = companyRepositories.GetCompanyDetailsByCode(code);
+        //        if (company == null)
+        //        {
+        //            return NotFound();
+        //        }
 
-        [Route("delete/{code}")]
-        [HttpDelete]
-        public IActionResult DeleteCompanyByCode(string code)
-        {
-            try
-            {
-                var company = companyRepositories.DeleteCompany(code);
-                if (!company)
-                {
-                    return NotFound();
-                }
+        //        return Ok(company);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return BadRequest();
+        //    }
+        //}
 
-                return Ok();
-            }
-            catch (Exception)
-            {
-                return BadRequest();
-            }
-        }
+        //[Route("delete/{code}")]
+        //[HttpDelete]
+        //public IActionResult DeleteCompanyByCode(string code)
+        //{
+        //    try
+        //    {
+        //        var company = companyRepositories.DeleteCompany(code);
+        //        if (!company)
+        //        {
+        //            return NotFound();
+        //        }
 
-        [Route("register")]
-        [HttpPost]
-        public IActionResult CreateRegister([FromBody] CustomerDto companyDetail)
-        {
-            try
-            {
-                var company = companyRepositories.CreateCompany(companyDetail);
-                if (company == null)
-                {
-                    return BadRequest();
-                }
+        //        return Ok();
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return BadRequest();
+        //    }
+        //}
 
-                return Created("Success", company);
-            }
-            catch (Exception ex)
-            {
-                return this.BadRequest(ex.Message.ToString());
-            }
-        }
+        //[Route("register")]
+        //[HttpPost]
+        //public IActionResult CreateRegister([FromBody] CustomerDto companyDetail)
+        //{
+        //    try
+        //    {
+        //        var company = companyRepositories.CreateCompany(companyDetail);
+        //        if (company == null)
+        //        {
+        //            return BadRequest();
+        //        }
+
+        //        return Created("Success", company);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return this.BadRequest(ex.Message.ToString());
+        //    }
+        //}
 
 
-        [Route("UpdateCompany/{code}")]
-        [HttpPut]
-        public IActionResult UpdateRegister([FromBody] CustomerDto companyDetail)
-        {
-            try
-            {
-                var company = companyRepositories.UpdateCompany(companyDetail);
-                if (company == null)
-                {
-                    return BadRequest();
-                }
+        //[Route("UpdateCompany/{code}")]
+        //[HttpPut]
+        //public IActionResult UpdateRegister([FromBody] CustomerDto companyDetail)
+        //{
+        //    try
+        //    {
+        //        var company = companyRepositories.UpdateCompany(companyDetail);
+        //        if (company == null)
+        //        {
+        //            return BadRequest();
+        //        }
 
-                return Ok(company);
-            }
-            catch (Exception ex)
-            {
-                return this.BadRequest(ex.Message.ToString());
-            }
-        }
+        //        return Ok(company);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return this.BadRequest(ex.Message.ToString());
+        //    }
+        //}
     }
 }

@@ -1,23 +1,18 @@
-using BankManagementMicroservice.DBContexts;
-using BankManagementMicroservice.Repository;
-using BankManagementMicroservice.Repository.JWTWebAuthentication;
+using ankMangementMicroservice.Helpers.JWTWebAuthentication;
+using BankMangementMicroservice.Data.DBContexts;
+using BankMangementMicroservice.Data.Repository;
+using BankMangementMicroservice.Helpers.JWTWebAuthentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace BankManagementMicroservice
 {
@@ -42,7 +37,7 @@ namespace BankManagementMicroservice
             });
 
             services.AddEntityFrameworkSqlServer().AddDbContext<CustomerDbContext>(dbContext => dbContext.UseSqlServer(Configuration.GetConnectionString("StockMarketContext")));
-            services.AddScoped<ICompanyRepositories, CompanyRepostories>();
+            services.AddScoped<ICompanyRepository, CompanyRepostory>();
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -63,12 +58,42 @@ namespace BankManagementMicroservice
                 };
             });
 
-            services.AddSingleton<IJWTManagerRepository, JWTManagerRepository>();
+            services.AddSingleton<IJWTManager, JWTManager>();
 
             services.AddControllers();
+
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CompnayDetails", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "BankManagement", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 
+                      Enter 'Bearer' [space] and then your token in the text input below.
+                      \r\n\r\nExample: 'Bearer 12345abcdef'",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                  {
+        {
+          new OpenApiSecurityScheme
+          {
+            Reference = new OpenApiReference
+              {
+                Type = ReferenceType.SecurityScheme,
+                Id = "Bearer"
+              },
+              Scheme = "oauth2",
+              Name = "Bearer",
+              In = ParameterLocation.Header,
+
+            },
+            new List<string>()
+          }
+                    });
             });
         }
 
@@ -86,7 +111,7 @@ namespace BankManagementMicroservice
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            app.UseAuthentication(); // This need to be added	
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

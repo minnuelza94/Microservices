@@ -23,4 +23,8 @@
     <Folder Include="Properties\ServiceDependencies\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BankMangementMicroservice.Data\BankMangementMicroservice.Data.csproj" />
+  </ItemGroup>
+
 </Project>

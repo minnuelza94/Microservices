@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BankManagementMicroservice.DTOs
 {
-    public class StockExchangeDto
+    public class LoanDto
     {
         public string StockName { get; set; }
         public int StockID { get; set; }
