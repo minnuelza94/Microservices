@@ -1,6 +1,6 @@
 ﻿namespace BankMangementMicroservice.Data.Repository
 {
-    public interface ICompanyRepository
+    public interface ICustomerRepository
     {
         //List<CustomerDto> GetAll();
 

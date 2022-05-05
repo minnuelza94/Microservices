@@ -2,7 +2,7 @@
 
 namespace BankMangementMicroservice.Data.Repository
 {
-    public class CompanyRepostory : ICompanyRepository
+    public class CustomerRepostory : ICustomerRepository
     {
         private CustomerDbContext stockMarketContext;
 

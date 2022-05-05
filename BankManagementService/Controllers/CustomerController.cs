@@ -2,7 +2,6 @@
 using BankMangementMicroservice.Helpers.JWTWebAuthentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using BankMangementMicroservice.Service.Service;
 using System.Collections.Generic;
 

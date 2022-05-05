@@ -2,6 +2,7 @@ using ankMangementMicroservice.Helpers.JWTWebAuthentication;
 using BankMangementMicroservice.Data.DBContexts;
 using BankMangementMicroservice.Data.Repository;
 using BankMangementMicroservice.Helpers.JWTWebAuthentication;
+using BankMangementMicroservice.Service.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -37,7 +38,8 @@ namespace BankManagementMicroservice
             });
 
             services.AddEntityFrameworkSqlServer().AddDbContext<CustomerDbContext>(dbContext => dbContext.UseSqlServer(Configuration.GetConnectionString("StockMarketContext")));
-            services.AddScoped<ICompanyRepository, CompanyRepostory>();
+            services.AddScoped<ICustomerRepository, CustomerRepostory>();
+            services.AddScoped<ICustomerService, CustomerService>();
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
