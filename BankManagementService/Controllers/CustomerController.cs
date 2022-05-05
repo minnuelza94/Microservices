@@ -3,6 +3,7 @@ using BankMangementMicroservice.Helpers.JWTWebAuthentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using BankMangementMicroservice.Service.Service;
 using System.Collections.Generic;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -14,19 +15,14 @@ namespace BankManagementMicroservice.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-       // private ICompanyRepositories companyRepositories;
+        private ICustomerService _customerService;
         private readonly IJWTManager _jWTManager;
 
-        public CustomerController(
-            //ICompanyRepositories _companyRepositories,
+        public CustomerController(ICustomerService customerService,
                                   IJWTManager jWTManager)
         {
-            //if (_companyRepositories == null)
-            //{
-            //    throw new NullReferenceException();
-            //}
-
-          //  this.companyRepositories = _companyRepositories;
+          
+            this._customerService = _customerService;
             this._jWTManager = jWTManager;
         }
 

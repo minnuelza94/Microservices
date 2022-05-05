@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BankMangementMicroservice.Data\BankMangementMicroservice.Data.csproj" />
+    <ProjectReference Include="..\BankMangementMicroservice.Service\BankMangementMicroservice.Service.csproj" />
   </ItemGroup>
 
 </Project>
