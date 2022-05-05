@@ -1,15 +1,24 @@
 ﻿using BankMangementMicroservice.Data.DBContexts;
+using BankMangementMicroservice.Data.Entity;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace BankMangementMicroservice.Data.Repository
 {
     public class CustomerRepostory : ICustomerRepository
     {
-        private CustomerDbContext stockMarketContext;
+        private CustomerDbContext customerDbContext;
 
-        //public CompanyRepostories(CustomerDbContext stockMarketContext)
-        //{
-        //    this.stockMarketContext = stockMarketContext;
-        //}
+        public CustomerRepostory(CustomerDbContext customerDbContext)
+        {
+            this.customerDbContext = customerDbContext;
+        }
+
+        public async Task<bool> DoesUserExists(CustomerDetail customer)
+        {
+            var user = customerDbContext.CustomerDetail.Any(x => x.Username == customer.Username && x.Password == customer.Password);
+            return user;
+        }
 
         //public List<CustomerDto> GetAll()
         //{

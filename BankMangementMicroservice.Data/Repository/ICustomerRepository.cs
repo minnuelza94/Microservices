@@ -1,8 +1,12 @@
-﻿namespace BankMangementMicroservice.Data.Repository
+﻿using BankMangementMicroservice.Data.Entity;
+using System.Threading.Tasks;
+
+namespace BankMangementMicroservice.Data.Repository
 {
     public interface ICustomerRepository
     {
-        //List<CustomerDto> GetAll();
+        Task<bool> DoesUserExists(CustomerDetail customer);
+        //List<Cu>stomerDto> GetAll();
 
         //List<StockExchangeDto> GetAllStock();
 

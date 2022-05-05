@@ -1,4 +1,5 @@
 ﻿using BankManagementMicroservice.DTOs;
+using BankManagementMicroservice.Service.Model;
 using BankMangementMicroservice.Helpers.JWTWebAuthentication;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -25,7 +26,7 @@ namespace ankMangementMicroservice.Helpers.JWTWebAuthentication
 		{
 			this.iconfiguration = iconfiguration;
 		}
-		public Tokens Authenticate(CustomerDto users)
+		public Tokens Authenticate(CustomerDetail users)
 		{
 			if (!UsersRecords.Any(x => x.Key == users.Name && x.Value == users.Password))
 			{

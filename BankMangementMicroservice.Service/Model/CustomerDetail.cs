@@ -1,4 +1,6 @@
-﻿namespace BankManagementMicroservice.Service.Model
+﻿using System;
+
+namespace BankManagementMicroservice.Service.Model
 {
     public partial class CustomerDetail
     {
@@ -11,9 +13,12 @@
         public string Country { get; set; }
         public string EmailAddress { get; set; }
         public string PAN { get; set; }
-        public string DOB { get; set; }
+        public DateTime DOB { get; set; }
         public long ContactNo { get; set; }
         public string AccountType { get; set; }
+        public DateTime CreatedOnUtc { get; set; }
+
+        public DateTime? UpdatedOnUtc { get; set; }
 
     }
 }

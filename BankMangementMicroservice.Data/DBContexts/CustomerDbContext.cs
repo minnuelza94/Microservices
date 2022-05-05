@@ -21,67 +21,39 @@ namespace BankMangementMicroservice.Data.DBContexts
         {
             if (!optionsBuilder.IsConfigured)
             {
-              
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=tcp:estockmarketserver.database.windows.net,1433;Initial Catalog=EStockMarket_DB;Persist Security Info=False;User ID=vicky;Password=Vickey12#;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                optionsBuilder.UseSqlServer(@"Server=(localdb)\ProjectsV13;Database=BankManagement_DB;Trusted_Connection=True;");
             }
         }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
-        //    modelBuilder.Entity<CompanyDetail>(entity =>
-        //    {
-        //        entity.HasKey(e => new { e.CompanyId, e.CompanyCode })
-        //            .HasName("PK_CompanyId");
+            modelBuilder.Entity<CustomerDetail>(entity =>
+            {
+                entity.HasKey(e => new { e.CustomerId })
+                    .HasName("PK_CustomerId");
 
-        //        entity.Property(e => e.CompanyCode)
-        //            .HasMaxLength(50)
-        //            .IsUnicode(false);
+                entity.Property(e => e.Name)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
 
-        //        entity.Property(e => e.CompanyCeo)
-        //            .IsRequired()
-        //            .HasMaxLength(25)
-        //            .IsUnicode(false)
-        //            .HasColumnName("CompanyCEO");
+            modelBuilder.Entity<LoanDetail>(entity =>
+            {
+                entity.HasKey(e => e.LoanId)
+                    .HasName("PK_LoanId");
 
-        //        entity.Property(e => e.CompanyName)
-        //            .IsRequired()
-        //            .HasMaxLength(50);
+                entity.ToTable("LoanDetail");
+              
+                entity.HasOne(d => d.CustomerDetail)
+                    .WithMany(p => p.LoanDeatils)
+                    .HasForeignKey(d => d.CustomerId)
+                    .HasConstraintName("Fk_LoanDeatil_CustomerId");
+            });
 
-        //        entity.Property(e => e.Turnover).HasColumnType("decimal(19, 2)");
-
-        //        entity.Property(e => e.Website)
-        //            .IsRequired()
-        //            .HasMaxLength(100)
-        //            .IsUnicode(false);
-
-        //        entity.HasOne(d => d.StockExchangeNavigation)
-        //            .WithMany(p => p.CompanyDetails)
-        //            .HasForeignKey(d => d.StockExchange)
-        //            .HasConstraintName("Fk_StockExchange_ExchangeID");
-        //    });
-
-        //    modelBuilder.Entity<LoanDetail>(entity =>
-        //    {
-        //        entity.HasKey(e => e.ExchangeId)
-        //            .HasName("PK_ExchangeId");
-
-        //        entity.ToTable("StockExchange");
-
-        //        entity.Property(e => e.ExchangeId)
-        //            .ValueGeneratedNever()
-        //            .HasColumnName("ExchangeID");
-
-        //        entity.Property(e => e.ExchangeName)
-        //            .IsRequired()
-        //            .HasMaxLength(10)
-        //            .IsUnicode(false);
-        //    });
-
-        //    OnModelCreatingPartial(modelBuilder);
-        //}
+            OnModelCreatingPartial(modelBuilder);
+        }
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

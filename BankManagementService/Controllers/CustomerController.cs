@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using BankMangementMicroservice.Service.Service;
 using System.Collections.Generic;
+using System;
+using BankManagementMicroservice.Service.Model;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,7 +24,7 @@ namespace BankManagementMicroservice.Controllers
                                   IJWTManager jWTManager)
         {
           
-            this._customerService = _customerService;
+            this._customerService = customerService;
             this._jWTManager = jWTManager;
         }
 
@@ -41,9 +44,10 @@ namespace BankManagementMicroservice.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("authenticate")]
-        public IActionResult Authenticate(CustomerDto usersdata)
+        public async Task<IActionResult> Authenticate(CustomerDetail usersdata)
         {
-            var token = _jWTManager.Authenticate(usersdata);
+            var user = await _customerService.DoesUserExists(usersdata);
+            var token = _jWTManager.Authenticate(user);
 
             if (token == null)
             {
@@ -54,18 +58,18 @@ namespace BankManagementMicroservice.Controllers
         }
 
         //[HttpGet]
-        //[Route("getall")]
-        //public IActionResult GetAll()
+        //[Route("getcustomer/{id}")]
+        //public IActionResult GetCustomerById(string customerId)
         //{
         //    try
         //    {
-        //        var company = companyRepositories.GetAll();
-        //        if (company == null)
+        //        var customer = _customerService.GetCustomerById();
+        //        if (customer == null)
         //        {
         //            return NotFound();
         //        }
 
-        //        return Ok(company);
+        //        return Ok(customer);
         //    }
         //    catch (Exception ex)
         //    {
