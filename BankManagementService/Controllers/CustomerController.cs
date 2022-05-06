@@ -47,7 +47,7 @@ namespace BankManagementMicroservice.Controllers
         public async Task<IActionResult> Authenticate(CustomerDetail usersdata)
         {
             var user = await _customerService.GetUser(usersdata);
-            if (user != null)
+            if (user == null)
             {
                 return NotFound();
             }
