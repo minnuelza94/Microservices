@@ -23,7 +23,7 @@ namespace BankManagementMicroservice.Controllers
         public CustomerController(ICustomerService customerService,
                                   IJWTManager jWTManager)
         {
-          
+
             this._customerService = customerService;
             this._jWTManager = jWTManager;
         }
@@ -46,9 +46,12 @@ namespace BankManagementMicroservice.Controllers
         [Route("authenticate")]
         public async Task<IActionResult> Authenticate(CustomerDetail usersdata)
         {
-            var user = await _customerService.DoesUserExists(usersdata);
+            var user = await _customerService.GetUser(usersdata);
+            if (user != null)
+            {
+                return NotFound();
+            }
             var token = _jWTManager.Authenticate(user);
-
             if (token == null)
             {
                 return Unauthorized();

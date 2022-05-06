@@ -14,13 +14,7 @@ namespace ankMangementMicroservice.Helpers.JWTWebAuthentication
 {
     public class JWTManager : IJWTManager
 	{
-		Dictionary<string, string> UsersRecords = new Dictionary<string, string>
-	{
-		{ "user1","password1"},
-		{ "user2","password2"},
-		{ "user3","password3"},
-	};
-
+		
 		private readonly IConfiguration iconfiguration;
 		public JWTManager(IConfiguration iconfiguration)
 		{
@@ -28,12 +22,6 @@ namespace ankMangementMicroservice.Helpers.JWTWebAuthentication
 		}
 		public Tokens Authenticate(CustomerDetail users)
 		{
-			if (!UsersRecords.Any(x => x.Key == users.Name && x.Value == users.Password))
-			{
-				return null;
-			}
-
-			// Else we generate JSON Web Token
 			var tokenHandler = new JwtSecurityTokenHandler();
 			var tokenKey = Encoding.UTF8.GetBytes(iconfiguration["JWT:Key"]);
 			var tokenDescriptor = new SecurityTokenDescriptor

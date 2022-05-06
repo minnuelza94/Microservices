@@ -38,7 +38,7 @@ namespace BankManagementMicroservice
                  .AllowAnyHeader());
             });
 
-            services.AddEntityFrameworkSqlServer().AddDbContext<CustomerDbContext>(dbContext => dbContext.UseSqlServer(Configuration.GetConnectionString("StockMarketContext")));
+            services.AddEntityFrameworkSqlServer().AddDbContext<CustomerDbContext>(dbContext => dbContext.UseSqlServer(Configuration.GetConnectionString("BankMngmntContext")));
             services.AddScoped<ICustomerRepository, CustomerRepostory>();
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddAuthentication(x =>

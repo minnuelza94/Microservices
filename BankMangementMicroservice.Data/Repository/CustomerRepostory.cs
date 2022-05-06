@@ -14,9 +14,9 @@ namespace BankMangementMicroservice.Data.Repository
             this.customerDbContext = customerDbContext;
         }
 
-        public async Task<bool> DoesUserExists(CustomerDetail customer)
+        public async Task<CustomerDetail> GetUser(CustomerDetail customer)
         {
-            var user = customerDbContext.CustomerDetail.Any(x => x.Username == customer.Username && x.Password == customer.Password);
+            var user = customerDbContext.CustomerDetail.FirstOrDefault(x => x.Username == customer.Username && x.Password == customer.Password);
             return user;
         }
 

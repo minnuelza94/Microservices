@@ -5,6 +5,6 @@ namespace BankMangementMicroservice.Service.Service
 {
     public interface ICustomerService
     {
-       Task<bool> DoesUserExists(CustomerDetail user);
+        Task<CustomerDetail> GetUser(CustomerDetail user);
     }
 }

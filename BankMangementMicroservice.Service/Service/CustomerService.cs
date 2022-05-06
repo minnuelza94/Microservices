@@ -18,10 +18,11 @@ namespace BankMangementMicroservice.Service.Service
             _mapper = mapper;
         }
 
-        public async Task<bool> DoesUserExists(CustomerDetail user)
+        public async Task<CustomerDetail> GetUser(CustomerDetail user)
         {
             var userData = _mapper.Map<customerEntity>(user);
-            return await _customerRepository.DoesUserExists(userData);
+            var data = await _customerRepository.GetUser(userData);
+            return _mapper.Map<CustomerDetail>(data);
         }
     }
 }

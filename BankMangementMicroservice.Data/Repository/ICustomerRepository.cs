@@ -5,7 +5,7 @@ namespace BankMangementMicroservice.Data.Repository
 {
     public interface ICustomerRepository
     {
-        Task<bool> DoesUserExists(CustomerDetail customer);
+        Task<CustomerDetail> GetUser(CustomerDetail customer);
         //List<Cu>stomerDto> GetAll();
 
         //List<StockExchangeDto> GetAllStock();
