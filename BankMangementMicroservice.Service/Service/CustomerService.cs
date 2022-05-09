@@ -3,6 +3,7 @@ using BankManagementMicroservice.Service.Model;
 using BankMangementMicroservice.Data.Repository;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using customerEntity = BankMangementMicroservice.Data.Entity.CustomerDetail;
 
@@ -36,6 +37,13 @@ namespace BankMangementMicroservice.Service.Service
             return data;
         }
 
+        public async Task<List<customerEntity>> GetAllCustomers()
+        {
+            var data = await _customerRepository.GetAllCustomers();
+            return data;
+        }
+
+
 
         public async Task<CustomerDetail> CreateCustomer(CustomerDetail customer)
         {
@@ -56,7 +64,8 @@ namespace BankMangementMicroservice.Service.Service
             {
                 throw new Exception("Customer Not Found");
             }
-            customerData.UpdatedOnUtc = DateTime.UtcNow;
+            var data = _mapper.Map<customerEntity>(customer);
+            data.UpdatedOnUtc = DateTime.UtcNow;
             _logger.LogInformation("Registering new customer in the DB");
             await _customerRepository.UpdateCustomer(customerData);
             _logger.LogInformation("Data saved in the DB");

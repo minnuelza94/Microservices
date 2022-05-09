@@ -31,19 +31,6 @@ namespace BankManagementMicroservice.Controllers
             this._loanService = loanService;
         }
 
-        [HttpGet]
-        public List<string> Get()
-        {
-            var users = new List<string>
-        {
-            "Satinder Singh",
-            "Amit Sarna",
-            "Davin Jon"
-        };
-
-            return users;
-        }
-
         [AllowAnonymous]
         [HttpPost]
         [Route("authenticate")]
@@ -109,6 +96,50 @@ namespace BankManagementMicroservice.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("getcustomer/{id}")]
+        public async Task<IActionResult> GetCustomerById(int id)
+        {
+            try
+            {
+                var result = await _customerService.GetCustomerById(id);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpGet]
+        [Route("getallcustomers")]
+        public async Task<IActionResult> GetAllCustomers()
+        {
+            try
+            {
+                var result = await _customerService.GetAllCustomers();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpGet]
+        [Route("getallloan")]
+        public async Task<IActionResult> GetAllLoan()
+        {
+            try
+            {
+                var result = await _loanService.GetAllLoan();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         //[HttpGet]
         //[Authorize(Roles = "admin")]
         //[Route("get-loan-details")]

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BankManagementMicroservice.Service.Model
 {
-    public partial class LoanDetail
+    public class LoanDetail
     {
         public int LoanId { get; set; }
 

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BankManagementMicroservice.Service.Model
 {
-    public partial class CustomerDetail
+    public class CustomerDetail
     {
         public int CustomerId { get; set; }
 
@@ -41,7 +41,6 @@ namespace BankManagementMicroservice.Service.Model
         public DateTime DOB { get; set; }
 
         [Required]
-        [StringLength(10, ErrorMessage = "ContactNo cannot exceed 10 characters.")]
         public long ContactNo { get; set; }
 
         [Required]

@@ -39,8 +39,12 @@ namespace BankManagementMicroservice
             });
 
             services.AddEntityFrameworkSqlServer().AddDbContext<CustomerDbContext>(dbContext => dbContext.UseSqlServer(Configuration.GetConnectionString("BankMngmntContext")));
-            services.AddScoped<ICustomerRepository, CustomerRepostory>();
-            services.AddScoped<ICustomerService, CustomerService>();
+            services.AddTransient<IJWTManager, JWTManager>();
+            services.AddTransient<ICustomerRepository, CustomerRepostory>();
+            services.AddTransient<ICustomerService, CustomerService>();
+            services.AddTransient<ILoanService, LoanService>();
+            services.AddTransient<ILoanRepository, LoanRepository>();
+
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -61,7 +65,8 @@ namespace BankManagementMicroservice
                 };
             });
 
-            services.AddSingleton<IJWTManager, JWTManager>();
+           
+          
 
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

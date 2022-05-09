@@ -34,6 +34,12 @@ namespace BankMangementMicroservice.Data.Repository
             var data = await _customerDbContext.CustomerDetail.Where(x => x.CustomerId == id).FirstOrDefaultAsync();
             return data;
         }
+
+        public async Task<List<CustomerDetail>> GetAllCustomers()
+        {
+            var data = await _customerDbContext.CustomerDetail.ToListAsync();
+            return data;
+        }
         public async Task<CustomerDetail> CreateCustomer(CustomerDetail customer)
         {
             await _customerDbContext.CustomerDetail.AddAsync(customer);

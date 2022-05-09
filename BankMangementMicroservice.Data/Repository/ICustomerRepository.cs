@@ -9,6 +9,7 @@ namespace BankMangementMicroservice.Data.Repository
         Task<CustomerDetail> GetUser(CustomerDetail customer);
         Task<bool> IsCustomerIdExists(int id);
         Task<CustomerDetail> GetCustomerById(int id);
+        Task<List<CustomerDetail>> GetAllCustomers();
         Task<CustomerDetail> CreateCustomer(CustomerDetail customer);
         Task<CustomerDetail> UpdateCustomer(CustomerDetail customer);
         Task<List<CustomerDetail>> GetAllCustomerDetails();
