@@ -31,7 +31,7 @@ namespace BankMangementMicroservice.Data.Repository
 
         public async Task<CustomerDetail> GetCustomerById(int id)
         {
-            var data = await _customerDbContext.CustomerDetail.Where(x => x.CustomerId == id).FirstOrDefaultAsync();
+            var data = await _customerDbContext.CustomerDetail.Where(x => x.CustomerId == id).AsNoTracking().FirstOrDefaultAsync();
             return data;
         }
 

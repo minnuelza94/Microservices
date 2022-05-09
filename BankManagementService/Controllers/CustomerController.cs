@@ -6,6 +6,7 @@ using System;
 using BankManagementMicroservice.Service.Model;
 using System.Threading.Tasks;
 using BankManagementMicroservice.Helpers;
+using BankMangementMicroservice.Service.Model;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -33,9 +34,9 @@ namespace BankManagementMicroservice.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("authenticate")]
-        public async Task<IActionResult> Authenticate(CustomerDetail usersdata)
+        public async Task<IActionResult> Authenticate(LoginModel login)
         {
-            var user = await _customerService.GetCustomer(usersdata);
+            var user = await _customerService.GetCustomer(login);
             if (user == null)
             {
                 return NotFound();
@@ -58,7 +59,7 @@ namespace BankManagementMicroservice.Controllers
             {
                 isValid(customer);
                 var result = await _customerService.CreateCustomer(customer);
-                return Ok("Successfully Created !!!");
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -88,7 +89,7 @@ namespace BankManagementMicroservice.Controllers
             try
             {
                 var result = await _customerService.UpdateCustomer(customer);
-                return Ok("Customer account updated Successfully");
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -146,8 +147,6 @@ namespace BankManagementMicroservice.Controllers
            
             if (!ValidCheck.IsValidEmail(customer.EmailAddress))
                 throw new Exception("Email Address is not valid.");
-            if (!ValidCheck.IsValidPan(customer.PAN))
-                throw new Exception("Pan Number is not valid.");
             if (!ValidCheck.IsValidMobileNumber(customer.ContactNo))
                 throw new Exception("Phone Number is not valid.");
         }

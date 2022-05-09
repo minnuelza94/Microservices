@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BankManagementMicroservice.Service.Model;
+using BankMangementMicroservice.Service.Model;
 using customerEntity = BankMangementMicroservice.Data.Entity.CustomerDetail;
 
 namespace BankManagementMicroservice.Helpers
@@ -8,7 +9,12 @@ namespace BankManagementMicroservice.Helpers
     {
         public AutoMapperProfile()
         {
-            CreateMap<CustomerDetail, customerEntity>().ReverseMap();
+            CreateMap<CustomerDetail, customerEntity>()
+                .ReverseMap();
+
+          
+
+            CreateMap<LoginModel, customerEntity>(); ;
         }
     }
 }

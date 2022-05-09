@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BankManagementMicroservice.Service.Model;
 using BankMangementMicroservice.Data.Repository;
+using BankMangementMicroservice.Service.Model;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace BankMangementMicroservice.Service.Service
             _logger = logger;
         }
 
-        public async Task<CustomerDetail> GetCustomer(CustomerDetail user)
+        public async Task<CustomerDetail> GetCustomer(LoginModel user)
         {
             var userData = _mapper.Map<customerEntity>(user);
             var data = await _customerRepository.GetUser(userData);
@@ -37,10 +38,10 @@ namespace BankMangementMicroservice.Service.Service
             return data;
         }
 
-        public async Task<List<customerEntity>> GetAllCustomers()
+        public async Task<List<CustomerDetail>> GetAllCustomers()
         {
             var data = await _customerRepository.GetAllCustomers();
-            return data;
+            return _mapper.Map<List<CustomerDetail>>(data);
         }
 
 
@@ -53,7 +54,7 @@ namespace BankMangementMicroservice.Service.Service
             _logger.LogInformation("Registering new customer in the DB");
             await _customerRepository.CreateCustomer(data);
             _logger.LogInformation("Data saved in the DB");
-            return customer;
+            return _mapper.Map<CustomerDetail>(data);
 
         }
 
@@ -62,14 +63,16 @@ namespace BankMangementMicroservice.Service.Service
             var customerData = await _customerRepository.GetCustomerById(customer.CustomerId);
             if (customerData == null)
             {
-                throw new Exception("Customer Not Found");
+                throw new Exception("Customer Not Found"); 
             }
-            var data = _mapper.Map<customerEntity>(customer);
+
+            var data = _mapper.Map<CustomerDetail, customerEntity>(customer);
             data.UpdatedOnUtc = DateTime.UtcNow;
+            data.Password = customerData.Password;
             _logger.LogInformation("Registering new customer in the DB");
-            await _customerRepository.UpdateCustomer(customerData);
+            await _customerRepository.UpdateCustomer(data);
             _logger.LogInformation("Data saved in the DB");
-            return customer;
+            return _mapper.Map<CustomerDetail>(data);
 
         }
 

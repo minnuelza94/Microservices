@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace BankManagementMicroservice.Service.Model
 {
@@ -15,7 +16,6 @@ namespace BankManagementMicroservice.Service.Model
         [StringLength(50, ErrorMessage = "Username cannot exceed 50 characters.")]
         public string Username { get; set; }
 
-        [Required]
         [StringLength(20, ErrorMessage = "Password cannot exceed 20 characters.")]
         public string Password { get; set; }
 
@@ -53,6 +53,6 @@ namespace BankManagementMicroservice.Service.Model
 
         public DateTime? UpdatedOnUtc { get; set; }
 
- 
+
     }
 }
