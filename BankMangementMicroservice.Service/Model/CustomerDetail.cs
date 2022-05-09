@@ -52,5 +52,6 @@ namespace BankManagementMicroservice.Service.Model
 
         public DateTime? UpdatedOnUtc { get; set; }
 
+ 
     }
 }

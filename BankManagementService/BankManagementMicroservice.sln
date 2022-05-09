@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankMangementMicroservice.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankMangementMicroservice.Service", "..\BankMangementMicroservice.Service\BankMangementMicroservice.Service.csproj", "{9E36A7AE-657C-4A61-8437-4B3D992767A9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankMangement.Test", "..\BankMangement.Test\BankMangement.Test.csproj", "{082CF4BB-F055-4B84-8A1B-099C807424D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{9E36A7AE-657C-4A61-8437-4B3D992767A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E36A7AE-657C-4A61-8437-4B3D992767A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E36A7AE-657C-4A61-8437-4B3D992767A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{082CF4BB-F055-4B84-8A1B-099C807424D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{082CF4BB-F055-4B84-8A1B-099C807424D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{082CF4BB-F055-4B84-8A1B-099C807424D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{082CF4BB-F055-4B84-8A1B-099C807424D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

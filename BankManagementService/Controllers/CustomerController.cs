@@ -1,9 +1,7 @@
-﻿using BankManagementMicroservice.DTOs;
-using BankMangementMicroservice.Helpers.JWTWebAuthentication;
+﻿using BankMangementMicroservice.Helpers.JWTWebAuthentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using BankMangementMicroservice.Service.Service;
-using System.Collections.Generic;
 using System;
 using BankManagementMicroservice.Service.Model;
 using System.Threading.Tasks;
@@ -127,7 +125,7 @@ namespace BankManagementMicroservice.Controllers
         }
 
         [HttpGet]
-        [Route("getallloan")]
+        [Route("getalloan")]
         public async Task<IActionResult> GetAllLoan()
         {
             try
