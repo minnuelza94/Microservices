@@ -1,5 +1,7 @@
 ﻿using BankMangementMicroservice.Data.DBContexts;
 using BankMangementMicroservice.Data.Entity;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,191 +9,51 @@ namespace BankMangementMicroservice.Data.Repository
 {
     public class CustomerRepostory : ICustomerRepository
     {
-        private CustomerDbContext customerDbContext;
+        private CustomerDbContext _customerDbContext;
 
         public CustomerRepostory(CustomerDbContext customerDbContext)
         {
-            this.customerDbContext = customerDbContext;
+            this._customerDbContext = customerDbContext;
         }
 
         public async Task<CustomerDetail> GetUser(CustomerDetail customer)
         {
-            var user = customerDbContext.CustomerDetail.FirstOrDefault(x => x.Username == customer.Username && x.Password == customer.Password);
+            var user = await _customerDbContext.CustomerDetail.FirstOrDefaultAsync(x => x.Username == customer.Username && x.Password == customer.Password);
             return user;
         }
 
-        //public List<CustomerDto> GetAll()
-        //{
-        //    if (stockMarketContext != null)
-        //    {
-        //        var result = (from c in stockMarketContext.CompanyDetails
-        //                      orderby c.CompanyName
-        //                      select new CustomerDto
-        //                      {
-        //                          CompanyCode = c.CompanyCode,
-        //                          CompanyName = c.CompanyName,
-        //                          CompanyCeo = c.CompanyCeo,
-        //                          Turnover = c.Turnover,
-        //                          Website = c.Website,
-        //                          StockExchange = c.StockExchangeNavigation.ExchangeName
-        //                      }).ToList();
+        public async Task<bool> IsCustomerIdExists(int id)
+        {
+            bool isExist = await _customerDbContext.CustomerDetail.Where(x => x.CustomerId == id).AnyAsync();
+            return isExist;
 
-        //        return result;
-        //    }
+        }
 
-        //    return null;
-        //}
+        public async Task<CustomerDetail> GetCustomerById(int id)
+        {
+            var data = await _customerDbContext.CustomerDetail.Where(x => x.CustomerId == id).FirstOrDefaultAsync();
+            return data;
+        }
+        public async Task<CustomerDetail> CreateCustomer(CustomerDetail customer)
+        {
+            await _customerDbContext.CustomerDetail.AddAsync(customer);
+            await _customerDbContext.SaveChangesAsync();
+            return customer;
 
-        //public List<StockExchangeDto> GetAllStock()
-        //{
-        //    if (stockMarketContext != null)
-        //    {
-        //        var result = (from c in stockMarketContext.StockExchanges
-        //                      orderby c.ExchangeName
-        //                      select new StockExchangeDto
-        //                      {
-        //                          StockID = c.ExchangeId,
-        //                          StockName = c.ExchangeName
-        //                      }).ToList();
+        }
 
-        //        return result;
-        //    }
+        public async Task<CustomerDetail> UpdateCustomer(CustomerDetail customer)
+        {
+             _customerDbContext.CustomerDetail.Update(customer);
+            await _customerDbContext.SaveChangesAsync();
+            return customer;
 
-        //    return null;
-        //}
+        }
 
-        //public CustomerDto GetCompanyDetailsByCode(string code)
-        //{
-        //    if (stockMarketContext != null)
-        //    {
-        //        var result = (from c in stockMarketContext.CompanyDetails
-        //                      where c.CompanyCode == code
-        //                      orderby c.CompanyName
-        //                      select new CustomerDto
-        //                      {
-        //                          CompanyCode = c.CompanyCode,
-        //                          CompanyName = c.CompanyName,
-        //                          CompanyCeo = c.CompanyCeo,
-        //                          Turnover = c.Turnover,
-        //                          Website = c.Website,
-        //                          StockExchange = c.StockExchangeNavigation.ExchangeName
-        //                      }).FirstOrDefault();
-
-        //        return result;
-        //    }
-
-        //    return null;
-        //}
-
-        //public CustomerDto CreateCompany(CustomerDto CompanyDto)
-        //{
-        //    if (CompanyDto != null)
-        //    {
-        //        var result = GetCompanyLastID(CompanyDto.CompanyCode);
-        //        if (result != -1)
-        //        {
-        //            var companyDetails = new CompanyDetail()
-        //            {
-        //                CompanyId = result + 1,
-        //                CompanyCode = CompanyDto.CompanyCode,
-        //                CompanyName = CompanyDto.CompanyName,
-        //                CompanyCeo = CompanyDto.CompanyCeo,
-        //                Turnover = CompanyDto.Turnover,
-        //                Website = CompanyDto.Website,
-        //                StockExchange = CheckStockList(CompanyDto.StockExchange)
-        //            };
-
-        //            stockMarketContext.Add(companyDetails);
-        //            stockMarketContext.SaveChanges();
-
-        //            return CompanyDto;
-        //        }
-
-        //        return null;
-        //    }
-
-        //    return null;
-        //}
-
-        //public CustomerDto UpdateCompany(CustomerDto CompanyDto)
-        //{
-        //    if (CompanyDto != null)
-        //    {
-        //        var result = stockMarketContext.CompanyDetails.Where(x => x.CompanyCode == CompanyDto.CompanyCode).FirstOrDefault();
-        //        if (result != null)
-        //        {
-        //            result.CompanyName = CompanyDto.CompanyName;
-        //            result.CompanyCeo = CompanyDto.CompanyCeo;
-        //            result.Turnover = CompanyDto.Turnover;
-        //            result.Website = CompanyDto.Website;
-        //            result.StockExchange = CheckStockList(CompanyDto.StockExchange);
-
-        //            stockMarketContext.Update<CompanyDetail>(result);
-        //            stockMarketContext.SaveChanges();
-        //            return CompanyDto;
-        //        }
-        //    }
-
-        //    return null;
-        //}
-
-        //public bool DeleteCompany(string code)
-        //{
-        //    if (!string.IsNullOrEmpty(code))
-        //    {
-        //        var result = (from c in stockMarketContext.CompanyDetails
-        //                      where c.CompanyCode == code
-        //                      orderby c.CompanyName
-        //                      select c).FirstOrDefault();
-
-        //        if (result != null)
-        //        {
-        //            stockMarketContext.Remove(result);
-        //            stockMarketContext.SaveChanges();
-        //            return true;
-        //        }
-
-        //        return false;
-        //    }
-
-        //    return false;
-        //}
-
-        //private int GetCompanyLastID(string code)
-        //{
-        //    var companyList = stockMarketContext.CompanyDetails.OrderByDescending(x => x.CompanyId).ToList();
-
-        //    var existingData = companyList.Where(x => x.CompanyCode == code).FirstOrDefault();
-        //    if (existingData != null)
-        //    {
-        //        return -1;
-        //    }
-
-        //    return companyList.Select(x => x.CompanyId).FirstOrDefault();
-        //}
-
-        //private int CheckStockList(string code)
-        //{
-        //    var stockList = stockMarketContext.StockExchanges.OrderByDescending(x => x.ExchangeId).ToList();
-
-        //    var existingData = stockList.Where(x => x.ExchangeName == code).FirstOrDefault();
-        //    var stockId = stockList.Select(x => x.ExchangeId).FirstOrDefault();
-
-        //    if (existingData == null)
-        //    {
-        //        var stockDetails = new LoanDetail
-        //        {
-        //            ExchangeId = stockId + 1,
-        //            ExchangeName = code
-        //        };
-
-        //        stockMarketContext.Add(stockDetails);
-        //        stockMarketContext.SaveChanges();
-
-        //        return stockDetails.ExchangeId;
-        //    }
-
-        //    return stockId;
-        //}
+        public async Task<List<CustomerDetail>> GetAllCustomerDetails()
+        {
+            var data = await _customerDbContext.CustomerDetail.ToListAsync();
+            return data;
+        }
     }
 }

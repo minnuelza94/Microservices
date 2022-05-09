@@ -17,15 +17,18 @@ namespace BankManagementMicroservice.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private ICustomerService _customerService;
+        private readonly ICustomerService _customerService;
         private readonly IJWTManager _jWTManager;
+        private readonly ILoanService _loanService;
 
-        public CustomerController(ICustomerService customerService,
-                                  IJWTManager jWTManager)
+        public CustomerController(ICustomerService customerService, 
+                                  IJWTManager jWTManager,
+                                  ILoanService loanService)
         {
 
             this._customerService = customerService;
             this._jWTManager = jWTManager;
+            this._loanService = loanService;
         }
 
         [HttpGet]
@@ -46,7 +49,7 @@ namespace BankManagementMicroservice.Controllers
         [Route("authenticate")]
         public async Task<IActionResult> Authenticate(CustomerDetail usersdata)
         {
-            var user = await _customerService.GetUser(usersdata);
+            var user = await _customerService.GetCustomer(usersdata);
             if (user == null)
             {
                 return NotFound();
@@ -60,125 +63,69 @@ namespace BankManagementMicroservice.Controllers
             return Ok(token);
         }
 
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("register")]
+        public async Task<IActionResult> Register([FromBody] CustomerDetail customer)
+        {
+            try
+            {
+                var result = await _customerService.CreateCustomer(customer);
+                return Ok("Successfully Created !!!");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpPost]
+        [Route("applyloan")]
+        public async Task<IActionResult> ApplyLoan([FromBody] LoanDetail loan)
+        {
+            try
+            {
+                var result = await _loanService.ApplyLoan(loan);
+                return Ok("Loan Applied Successfully");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpPost]
+        [Route("update-customer")]
+        public async Task<IActionResult> UpdateCustomer([FromBody] CustomerDetail customer)
+        {
+            try
+            {
+                var result = await _customerService.UpdateCustomer(customer);
+                return Ok("Customer account updated Successfully");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         //[HttpGet]
-        //[Route("getcustomer/{id}")]
-        //public IActionResult GetCustomerById(string customerId)
+        //[Authorize(Roles = "admin")]
+        //[Route("get-loan-details")]
+        //public IActionResult GetAllLoanDetails()
         //{
-        //    try
-        //    {
-        //        var customer = _customerService.GetCustomerById();
-        //        if (customer == null)
-        //        {
-        //            return NotFound();
-        //        }
-
-        //        return Ok(customer);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message.ToString());
-        //    }
+        //    return Ok(_loanService.GetAllLoanDetails());
         //}
 
-        //[HttpGet]
-        //[Route("getallStock")]
-        //public IActionResult GetAllStock()
+        //[HttpGet, Authorize(Roles = "admin"), Route("get-customer-details")]
+        //public IActionResult GetAccountDetails()
         //{
-        //    try
-        //    {
-        //        var stock = companyRepositories.GetAllStock();
-        //        if (stock == null)
-        //        {
-        //            return NotFound();
-        //        }
-
-        //        return Ok(stock);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message.ToString());
-        //    }
-        //}
-
-        //[Route("info/{code}")]
-        //[HttpGet]
-        //public IActionResult GetCompanyById(string code)
-        //{
-        //    try
-        //    {
-        //        var company = companyRepositories.GetCompanyDetailsByCode(code);
-        //        if (company == null)
-        //        {
-        //            return NotFound();
-        //        }
-
-        //        return Ok(company);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return BadRequest();
-        //    }
-        //}
-
-        //[Route("delete/{code}")]
-        //[HttpDelete]
-        //public IActionResult DeleteCompanyByCode(string code)
-        //{
-        //    try
-        //    {
-        //        var company = companyRepositories.DeleteCompany(code);
-        //        if (!company)
-        //        {
-        //            return NotFound();
-        //        }
-
-        //        return Ok();
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return BadRequest();
-        //    }
-        //}
-
-        //[Route("register")]
-        //[HttpPost]
-        //public IActionResult CreateRegister([FromBody] CustomerDto companyDetail)
-        //{
-        //    try
-        //    {
-        //        var company = companyRepositories.CreateCompany(companyDetail);
-        //        if (company == null)
-        //        {
-        //            return BadRequest();
-        //        }
-
-        //        return Created("Success", company);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return this.BadRequest(ex.Message.ToString());
-        //    }
-        //}
-
-
-        //[Route("UpdateCompany/{code}")]
-        //[HttpPut]
-        //public IActionResult UpdateRegister([FromBody] CustomerDto companyDetail)
-        //{
-        //    try
-        //    {
-        //        var company = companyRepositories.UpdateCompany(companyDetail);
-        //        if (company == null)
-        //        {
-        //            return BadRequest();
-        //        }
-
-        //        return Ok(company);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return this.BadRequest(ex.Message.ToString());
-        //    }
+        //    return Ok(_registerService.GetAccountDetails());
         //}
     }
 }
+       
+       
+     
+
+       
