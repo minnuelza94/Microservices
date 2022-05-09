@@ -41,7 +41,8 @@ namespace BankManagementMicroservice.Service.Model
         public DateTime DOB { get; set; }
 
         [Required]
-        public long ContactNo { get; set; }
+        [StringLength(10, ErrorMessage = "ContactNo cannot exceed 10 characters.")]
+        public string ContactNo { get; set; }
 
         [Required]
         [StringLength(10, ErrorMessage = "AccountType cannot exceed 10 characters.")]

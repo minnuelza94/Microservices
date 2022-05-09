@@ -5,6 +5,7 @@ using BankMangementMicroservice.Service.Service;
 using System;
 using BankManagementMicroservice.Service.Model;
 using System.Threading.Tasks;
+using BankManagementMicroservice.Helpers;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -55,12 +56,13 @@ namespace BankManagementMicroservice.Controllers
         {
             try
             {
+                isValid(customer);
                 var result = await _customerService.CreateCustomer(customer);
                 return Ok("Successfully Created !!!");
             }
             catch (Exception ex)
             {
-                throw ex;
+                return BadRequest(ex.Message);
             }
         }
 
@@ -75,7 +77,7 @@ namespace BankManagementMicroservice.Controllers
             }
             catch (Exception ex)
             {
-                throw ex;
+                return BadRequest(ex.Message);
             }
         }
 
@@ -90,7 +92,7 @@ namespace BankManagementMicroservice.Controllers
             }
             catch (Exception ex)
             {
-                throw ex;
+                return BadRequest(ex.Message);
             }
         }
 
@@ -105,7 +107,7 @@ namespace BankManagementMicroservice.Controllers
             }
             catch (Exception ex)
             {
-                throw ex;
+                return BadRequest(ex.Message);
             }
         }
 
@@ -120,7 +122,7 @@ namespace BankManagementMicroservice.Controllers
             }
             catch (Exception ex)
             {
-                throw ex;
+                return BadRequest(ex.Message);
             }
         }
 
@@ -135,8 +137,19 @@ namespace BankManagementMicroservice.Controllers
             }
             catch (Exception ex)
             {
-                throw ex;
+                return BadRequest(ex.Message);
             }
+        }
+
+        private void isValid(CustomerDetail customer)
+        {
+           
+            if (!ValidCheck.IsValidEmail(customer.EmailAddress))
+                throw new Exception("Email Address is not valid.");
+            if (!ValidCheck.IsValidPan(customer.PAN))
+                throw new Exception("Pan Number is not valid.");
+            if (!ValidCheck.IsValidMobileNumber(customer.ContactNo))
+                throw new Exception("Phone Number is not valid.");
         }
         //[HttpGet]
         //[Authorize(Roles = "admin")]

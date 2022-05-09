@@ -1,8 +1,9 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
 namespace BankManagementMicroservice.Helpers
 {
-    public class ValidCheck
+    public class ValidCheck 
     {
         public static bool IsValidEmail(string emailId)
         {

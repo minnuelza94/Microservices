@@ -40,7 +40,7 @@ namespace BankMangementMicroservice.Data.Entity
         public DateTime DOB { get; set; }
 
         [Required]
-        public long ContactNo { get; set; }
+        public string ContactNo { get; set; }
 
         [Required]
         public string AccountType { get; set; }
