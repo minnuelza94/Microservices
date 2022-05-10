@@ -11,7 +11,7 @@ namespace BankMangementMicroservice.Service.Service
         Task<CustomerDetail> GetCustomer(LoginModel user);
         Task<customerEntity> GetCustomerById(int id);
         Task<List<CustomerDetail>> GetAllCustomers();
-        Task<CustomerDetail> CreateCustomer(CustomerDetail customer);
+        Task<CustomerDetail> CreateCustomer(RegisterModel customer);
         Task<CustomerDetail> UpdateCustomer(CustomerDetail customer);
     }
 }

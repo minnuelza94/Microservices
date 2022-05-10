@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace BankManagementMicroservice.Service.Model
 {
-    public class CustomerDetail
+    public class RegisterModel
     {
         public int CustomerId { get; set; }
 
@@ -17,7 +17,6 @@ namespace BankManagementMicroservice.Service.Model
         public string Username { get; set; }
 
         [StringLength(20, ErrorMessage = "Password cannot exceed 20 characters.")]
-        [JsonIgnore]
         public string Password { get; set; }
 
         [Required]

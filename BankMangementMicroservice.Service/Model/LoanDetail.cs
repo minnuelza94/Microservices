@@ -9,16 +9,16 @@ namespace BankManagementMicroservice.Service.Model
 
         [Required]
         [StringLength(20, ErrorMessage = "LoanType cannot exceed 20 characters.")]
-        public int LoanType { get; set; }
+        public string LoanType { get; set; }
 
         [Required]
-        public decimal LoanAmount { get; set; }
+        public double LoanAmount { get; set; }
 
         [Required]
         public DateTime Date { get; set; }
 
         [Required]
-        public decimal RateofInterest { get; set; }
+        public float RateofInterest { get; set; }
 
         [Required]
         public int DurationofLoan { get; set; }

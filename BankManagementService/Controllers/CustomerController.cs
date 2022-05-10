@@ -53,7 +53,7 @@ namespace BankManagementMicroservice.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Register([FromBody] CustomerDetail customer)
+        public async Task<IActionResult> Register([FromBody] RegisterModel customer)
         {
             try
             {
@@ -142,7 +142,7 @@ namespace BankManagementMicroservice.Controllers
             }
         }
 
-        private void isValid(CustomerDetail customer)
+        private void isValid(RegisterModel customer)
         {
            
             if (!ValidCheck.IsValidEmail(customer.EmailAddress))

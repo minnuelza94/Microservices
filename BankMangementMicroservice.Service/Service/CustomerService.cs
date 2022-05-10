@@ -46,7 +46,7 @@ namespace BankMangementMicroservice.Service.Service
 
 
 
-        public async Task<CustomerDetail> CreateCustomer(CustomerDetail customer)
+        public async Task<CustomerDetail> CreateCustomer(RegisterModel customer)
         {
 
             customer.CreatedOnUtc = DateTime.UtcNow;
