@@ -18,7 +18,7 @@ namespace BankMangementMicroservice.Service.Service
         private readonly ILogger _logger;
         public CustomerService(ICustomerRepository customerRepository,
             IMapper mapper,
-            ILogger<CustomerService> logger)
+            ILogger logger)
         {
             _customerRepository = customerRepository;
             _mapper = mapper;
