@@ -2,10 +2,12 @@
 using BankManagementMicroservice.Service.Model;
 using BankMangementMicroservice.Data.Repository;
 using BankMangementMicroservice.Service.Service;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 using System;
+using System.Threading.Tasks;
 using customerEntity = BankMangementMicroservice.Data.Entity.CustomerDetail;
 using loanEntity = BankMangementMicroservice.Data.Entity.LoanDetail;
 
@@ -75,5 +77,7 @@ namespace BankMangement.Test
             // Assert           
             Assert.IsNotNull(actionResult);
         }
+
+       
     }
 }
